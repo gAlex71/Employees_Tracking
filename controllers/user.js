@@ -19,11 +19,19 @@ const login = async (req, res) => {
 	//Сравниваем пришедший к нам пароль, и хеш пароля пользователя
 	const isPasswordCorrect = user && (await bcrypt.compare(password, user.password));
 
-	if (user && isPasswordCorrect) {
+	const secret = process.env.JWT_SECRET;
+
+	if (user && isPasswordCorrect && secret) {
 		res.status(200).json({
 			id: user.id,
 			name: user.name,
 			email: user.email,
+			token: jwt.sign(
+				{ id: user.id },
+				secret,
+				//Время действия токена
+				{ expiresIn: '1d' }
+			),
 		});
 	} else {
 		res.status(400).json({ message: 'Неверный логин или пароль!' });
@@ -80,7 +88,8 @@ const registration = async (req, res) => {
 };
 
 const current = async (req, res) => {
-	res.send('current user');
+	//После проверки на авторизацию возвращаем текущего пользователя
+	return res.status(200).json(req.user);
 };
 
 module.exports = {
