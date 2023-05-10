@@ -23,7 +23,7 @@ const Header = () => {
           <CustomButton type="ghost" icon={<UserOutlined />}>Войти</CustomButton>
         </Link>
         <Link to={Paths.registration}>
-          <CustomButton type="ghost" icon={<LoginOutlined />}>Регистрация</CustomButton>
+          <CustomButton type="ghost" icon={<LoginOutlined />}>Зарегистрироваться</CustomButton>
         </Link>
       </Space>
 		</Layout.Header>
