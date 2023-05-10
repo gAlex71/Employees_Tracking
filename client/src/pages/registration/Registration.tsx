@@ -1,7 +1,10 @@
 import React from 'react'
+import Layout from '../../components/layout/Layout'
 const Registration = () => {
   return (
-    <div>Registration</div>
+    <Layout>
+      <h1>Registration</h1>
+    </Layout>
   )
 }
 
