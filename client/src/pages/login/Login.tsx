@@ -4,19 +4,22 @@ import { Card, Row, Form, Space, Typography } from 'antd';
 import CustomInput from '../../bricks/CustomInput';
 import PasswordInput from '../../bricks/PasswordInput';
 import CustomButton from '../../bricks/CustomButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Paths } from '../../paths';
 import { UserData, useLoginMutation } from '../../store/services/auth';
 import { errorMessage } from '../../utils/errorMessage';
 import ErrorMessage from '../../components/error/ErrorMessage';
 
 const Login = () => {
+	const navigate = useNavigate();
 	const [loginUser, loginUserResult] = useLoginMutation();
 	const [error, setError] = useState('');
 
 	const login = async (data: UserData) => {
 		try {
 			await loginUser(data).unwrap();
+
+			navigate(Paths.home);
 		} catch (err) {
 			const isError = errorMessage(err);
 

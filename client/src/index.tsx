@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Paths } from './paths';
 import Login from './pages/login/Login';
 import Registration from './pages/registration/Registration';
+import Auth from './features/auth/Auth';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -36,7 +37,9 @@ root.render(
 					algorithm: theme.darkAlgorithm,
 				}}
 			>
-				<RouterProvider router={router} />
+				<Auth>
+					<RouterProvider router={router} />
+				</Auth>
 			</ConfigProvider>
 		</Provider>
 	</React.StrictMode>
