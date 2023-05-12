@@ -31,7 +31,7 @@ const PasswordInput = ({ name, placeholder, dependencies }: PropsPassword) => {
 
                             return Promise.reject(new Error('Пароли не совпадают'));
                         } else {
-                            if(value.length < 6){
+                            if(value.length < 5){
                                 return Promise.reject(new Error('Пароль должен содержать не менее 6 символов'));
                             }
 

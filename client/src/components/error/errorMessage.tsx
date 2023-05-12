@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { Alert } from 'antd';
 
-const errorMessage = () => {
-  return (
-    <div>5.21.40</div>
-  )
-}
+type PropsMessage = {
+	message?: string;
+};
 
-export default errorMessage;
+const ErrorMessage = ({ message }: PropsMessage) => {
+	if (!message) return null;
+
+	return <Alert message={message} type="error" />;
+};
+
+export default ErrorMessage;

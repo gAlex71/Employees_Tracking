@@ -6,7 +6,7 @@ const baseQuery = fetchBaseQuery({
 
 //Повторение запроса в случае сброса
 const baseQueryWithRetry = retry(baseQuery, {
-  maxRetries: 3
+  maxRetries: 1
 })
 
 export const api = createApi({
