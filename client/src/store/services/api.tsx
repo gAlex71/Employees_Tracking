@@ -1,9 +1,17 @@
-import React from 'react'
+import {createApi, fetchBaseQuery, retry} from '@reduxjs/toolkit/query/react';
 
-export const Api = () => {
-  return (
-    <div>
-      4.30.50
-    </div>
-  )
-}
+const baseQuery = fetchBaseQuery({
+  baseUrl: 'http://localhost:8000/api',
+})
+
+//Повторение запроса в случае сброса
+const baseQueryWithRetry = retry(baseQuery, {
+  maxRetries: 3
+})
+
+export const api = createApi({
+  reducerPath: 'splitApi',
+  baseQuery: baseQueryWithRetry,
+  refetchOnMountOrArgChange: true,
+  endpoints: () => ({}),
+});

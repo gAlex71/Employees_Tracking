@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '../../components/layout/Layout';
 import { Card, Row, Form, Space, Typography } from 'antd';
 import CustomInput from '../../bricks/CustomInput';
@@ -6,13 +6,32 @@ import PasswordInput from '../../bricks/PasswordInput';
 import CustomButton from '../../bricks/CustomButton';
 import { Link } from 'react-router-dom';
 import { Paths } from '../../paths';
+import { UserData, useLoginMutation } from '../../store/services/auth';
+import { errorMessage } from '../../utils/errorMessage';
 
 const Login = () => {
+	const [loginUser, loginUserResult] = useLoginMutation();
+	const [error, setError] = useState('');
+	
+	const login = async (data: UserData) => {
+		try {
+			await loginUser(data).unwrap();
+		} catch (err) {
+			const isError = errorMessage(err);
+
+			if(isError){
+				setError(err.data.message);
+			}else{
+				setError('Неизвестная ошибка');
+			}
+		}
+	}
+
 	return (
 		<Layout>
 			<Row align="middle" justify="center">
 				<Card title="Вход в аккаунт" style={{ width: '30rem' }}>
-					<Form onFinish={() => null}>
+					<Form onFinish={login}>
 						<CustomInput type="email" name="email" placeholder="Email" />
             <PasswordInput name="password" placeholder="Пароль"/>
             <CustomButton type='primary' htmlType='submit'>
