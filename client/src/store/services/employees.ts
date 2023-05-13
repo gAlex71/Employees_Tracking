@@ -1,39 +1,56 @@
 import { api } from './api';
 
-export type User = {
-    id: number,
-    name: string
-    email: string,
-    password: string,
+export type Employee = {
+    id: string,
+    firstName: string
+    lastName: string,
+    age: string,
+    address: string,
+    userId: string
 }
 
-//Удаляем из типа id пользователя
-export type UserData = Omit<User, "id">
-type ResponceLoginData = User & {token: string}
-
-export const authApi = api.injectEndpoints({
+export const employeesApi = api.injectEndpoints({
     endpoints: (builder) => ({
-        //В дженерик помещаем то, что мы получим от сервера, и то, что отправляем
-        login: builder.mutation<ResponceLoginData, UserData>({
-            query: (userData) => ({
-                url: '/user/login',
-                method: 'POST',
-                body: userData
-            })
-        }),
-        registration: builder.mutation<ResponceLoginData, UserData>({
-            query: (userData) => ({
-                url: '/user/registration',
-                method: 'POST',
-                body: userData
-            })
-        }),
-        //Здесь мы делаем просто запрос, не отправляя никаких данных
-        current: builder.query<ResponceLoginData, void>({
+        getAllEmployees: builder.query<Employee[], void>({
             query: () => ({
-                url: '/user/current',
+                url: '/employees',
                 method: 'GET'
             })
-        })
+        }),
+        getEmployee: builder.query<Employee, string>({
+            query: (id) => ({
+                url: `/employees/${id}`,
+                method: 'GET'
+            })
+        }),
+        editEmployee: builder.mutation<string, Employee>({
+            query: (employee) => ({
+                url: `/employees/edit/${employee.id}`,
+                method: 'PUT',
+                body: employee
+            })
+        }),
+        removeEmployee: builder.mutation<string, string>({
+            query: (id) => ({
+                url: `/employees/remove/${id}`,
+                method: 'POST',
+                body: {id}
+            })
+        }),
+        addEmployee: builder.mutation<Employee, Employee>({
+            query: (employee) => ({
+                url: '/employees/add',
+                method: 'POST',
+                body: employee
+            })
+        }),
     })
 })
+
+export const {
+    useGetAllEmployeesQuery,
+    useGetEmployeeQuery,
+    useEditEmployeeMutation,
+    useRemoveEmployeeMutation,
+    useAddEmployeeMutation
+} = employeesApi;
