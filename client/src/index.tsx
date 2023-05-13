@@ -10,6 +10,7 @@ import { Paths } from './paths';
 import Login from './pages/login/Login';
 import Registration from './pages/registration/Registration';
 import Auth from './features/auth/Auth';
+import Employees from './pages/employees/Employees';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -17,7 +18,7 @@ const root = createRoot(container);
 const router = createBrowserRouter([
 	{
 		path: Paths.home,
-		element: <div>Home</div>,
+		element: <Employees />,
 	},
 	{
 		path: Paths.login,
