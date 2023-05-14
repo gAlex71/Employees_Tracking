@@ -13,6 +13,8 @@ import Auth from './features/auth/Auth';
 import Employees from './pages/employees/Employees';
 import CreateEmployees from './pages/employees/CreateEmployees';
 import Status from './bricks/Status';
+import EmployeeInfo from './pages/employees/EmployeeInfo';
+import EditEmployee from './pages/employees/EditEmployee';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
 	{
 		path: `${Paths.status}/:status`,
 		element: <Status />,
+	},
+	{
+		path: `${Paths.employee}/:id`,
+		element: <EmployeeInfo />,
+	},
+	{
+		path: `${Paths.employeeEdit}/:id`,
+		element: <EditEmployee />,
 	},
 ]);
 
