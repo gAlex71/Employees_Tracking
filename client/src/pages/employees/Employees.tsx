@@ -45,9 +45,13 @@ const Employees = () => {
     }
   }, [navigate, user]);
 
+  const redirectCreateEmployee = () => {
+    navigate(Paths.employeeAdd);
+  };
+
 	return (
 		<Layout>
-			<CustomButton type="primary" onClick={() => null} icon={<PlusCircleOutlined />}>
+			<CustomButton type="primary" onClick={redirectCreateEmployee} icon={<PlusCircleOutlined />}>
 				Добавить сотрудника
 			</CustomButton>
       <Table 
